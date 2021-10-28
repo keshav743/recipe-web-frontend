@@ -96,8 +96,8 @@ export default {
     },
     async triggerSignupAction() {
       if (
-        this.signupFirstName.trim == "" ||
-        this.signupLastName == "" ||
+        this.signupFirstName.trim() == "" ||
+        this.signupLastName.trim() == "" ||
         this.signupPassword.trim() == "" ||
         this.signupEmail.trim() == ""
       ) {

@@ -1,6 +1,7 @@
 <template>
+  <the-header></the-header>
   <div class="flex flex-row">
-    <div class="w-1/2 mx-8 my-40 px-5">
+    <div class="w-1/2 mx-2 my-40 px-5">
       <h1 class="text-4xl font-semibold mb-4 text-indigo-900">Recipe Centre</h1>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -15,3 +16,12 @@
     </router-view>
   </div>
 </template>
+
+<script>
+import TheHeader from "../components/TheHeader.vue";
+export default {
+  components: {
+    TheHeader,
+  },
+};
+</script>
