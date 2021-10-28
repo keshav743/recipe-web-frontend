@@ -3,6 +3,22 @@
     <div class="h-20"></div>
     <loading-spinner></loading-spinner>
   </div>
+  <div v-else-if="recipe == false">
+    <div class="h-20"></div>
+    <div class="absolute z-10 backdrop">
+      <dialog open class="rounded-lg my-36 p-10 text-center">
+        <p class="text-xl font-normal p-2 w-56 mb-5">
+          No Recipe Found for the given ID.
+        </p>
+        <button
+          @click="goBack"
+          class="px-4 py-2 text-white bg-indigo-900 mx-auto rounded-lg cursor-pointer"
+        >
+          Go Back to Recipes Page
+        </button>
+      </dialog>
+    </div>
+  </div>
   <div v-else class="m-8">
     <div class="flex flex-row shadow-md rounded-md">
       <img
@@ -102,6 +118,9 @@ export default {
     };
   },
   methods: {
+    goBack() {
+      this.$router.push("/recipes/all");
+    },
     goToEditPage() {
       this.$router.push(`/recipes/edit/${this.id}`);
     },
@@ -121,6 +140,8 @@ export default {
         const recipe = await result.json();
         this.recipe = recipe.data.recipe;
         console.log(this.recipe);
+      } else {
+        this.recipe = false;
       }
     },
   },

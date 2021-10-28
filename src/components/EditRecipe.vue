@@ -3,6 +3,22 @@
     <div class="h-20"></div>
     <loading-spinner></loading-spinner>
   </div>
+  <div v-else-if="recipe == false">
+    <div class="h-20"></div>
+    <div class="absolute z-10 backdrop">
+      <dialog open class="rounded-lg my-36 p-10 text-center">
+        <p class="text-xl font-normal p-2 w-56 mb-5">
+          No Recipe Found for the given ID.
+        </p>
+        <button
+          @click="goBack"
+          class="px-4 py-2 text-white bg-indigo-900 mx-auto rounded-lg cursor-pointer"
+        >
+          Go Back to Recipes Page
+        </button>
+      </dialog>
+    </div>
+  </div>
   <div class="mx-8 my-4 flex flex-col" v-else>
     <div class="absolute z-10 backdrop" v-if="loading">
       <loading-spinner class="center mt-48"></loading-spinner>
@@ -345,6 +361,8 @@ export default {
           });
           this.recipe = recipe;
         });
+      } else {
+        this.recipe = false;
       }
     });
   },
