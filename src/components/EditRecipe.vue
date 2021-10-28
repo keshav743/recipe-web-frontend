@@ -25,7 +25,7 @@
     </div>
     <div
       class="absolute z-10 backdrop"
-      v-if="recipe['_id'] !== $store.getters['user/id']"
+      v-if="recipe['userId'] !== $store.getters['user/id']"
     >
       <dialog open class="rounded-lg my-36 p-10 text-center">
         <p class="text-xl font-normal p-2 w-56 mb-5">
@@ -363,6 +363,7 @@ export default {
             };
           });
           this.recipe = recipe;
+          console.log(recipe["userId"], this.$store.getters["user/id"]);
         });
       } else {
         this.recipe = false;
