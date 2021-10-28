@@ -99,7 +99,8 @@ export default {
         this.signupFirstName.trim() == "" ||
         this.signupLastName.trim() == "" ||
         this.signupPassword.trim() == "" ||
-        this.signupEmail.trim() == ""
+        this.signupEmail.trim() == "" ||
+        this.signupPassword.length < 8
       ) {
         this.signupFormValid = false;
         this.errorMsg = "All fields are required! Enter some valid data.";

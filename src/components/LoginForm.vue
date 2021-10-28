@@ -74,11 +74,7 @@ export default {
       this.$store.commit("err/setLoginError", { err: null });
     },
     async triggerLoginAction() {
-      if (
-        this.loginPassword.trim() == "" ||
-        this.loginEmail.trim() == "" ||
-        this.loginPassword.length < 8
-      ) {
+      if (this.loginPassword.trim() == "" || this.loginEmail.trim() == "") {
         this.loginFormValid = false;
         this.errorMsg = "All fields are required! Enter some valid data.";
         return;
