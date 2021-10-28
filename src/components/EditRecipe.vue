@@ -332,13 +332,16 @@ export default {
     },
   },
   created() {
-    fetch(`http://localhost:3000/api/recipes/${this.recipeId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: this.$store.getters.token,
-      },
-    }).then((result) => {
+    fetch(
+      `https://radiant-ridge-40570.herokuapp.com/api/recipes/${this.recipeId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: this.$store.getters.token,
+        },
+      }
+    ).then((result) => {
       if (result.status >= 200 && result.status < 400) {
         console.log("Recipes Recieved");
         result.json().then((recipe) => {

@@ -126,7 +126,7 @@ export default {
     },
     async getRecipeById() {
       const result = await fetch(
-        `http://localhost:3000/api/recipes/${this.id}/`,
+        `https://radiant-ridge-40570.herokuapp.com/api/recipes/${this.id}/`,
         {
           method: "GET",
           headers: {

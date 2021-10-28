@@ -16,13 +16,16 @@ export default {
   },
   actions: {
     async getRecipes(context) {
-      const result = await fetch("http://localhost:3000/api/recipes/all/", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: context.rootGetters.token,
-        },
-      });
+      const result = await fetch(
+        "https://radiant-ridge-40570.herokuapp.com/api/recipes/all/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: context.rootGetters.token,
+          },
+        }
+      );
       if (result.status >= 200 && result.status < 400) {
         console.log("Recipes Recieved");
         const allRecipes = await result.json();
@@ -38,14 +41,17 @@ export default {
 
     async addNewRecipe(context, payload) {
       console.log(context.rootGetters["user/id"]);
-      const result = await fetch(`http://localhost:3000/api/recipes/new/`, {
-        method: "POST",
-        body: JSON.stringify(payload),
-        headers: {
-          "Content-Type": "application/json",
-          authorization: context.rootGetters.token,
-        },
-      });
+      const result = await fetch(
+        `https://radiant-ridge-40570.herokuapp.com/api/recipes/new/`,
+        {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+            authorization: context.rootGetters.token,
+          },
+        }
+      );
       if (result.status >= 200 && result.status < 400) {
         console.log("Recipes Recieved");
         const recipe = await result.json();
@@ -58,7 +64,7 @@ export default {
     async editRecipe(context, payload) {
       console.log(context.rootGetters["user/id"]);
       const result = await fetch(
-        `http://localhost:3000/api/recipes/edit/${payload.recipeId}/${context.rootGetters["user/id"]}`,
+        `https://radiant-ridge-40570.herokuapp.com/api/recipes/edit/${payload.recipeId}/${context.rootGetters["user/id"]}`,
         {
           method: "POST",
           body: JSON.stringify(payload),
@@ -75,7 +81,7 @@ export default {
     },
     searchRecipe(context, payload) {
       return fetch(
-        `http://localhost:3000/api/recipes/search/${
+        `https://radiant-ridge-40570.herokuapp.com/api/recipes/search/${
           payload.searchStr == "" ? "limitAll6" : payload.searchStr
         }`,
         {
