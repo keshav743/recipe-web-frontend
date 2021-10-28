@@ -8,6 +8,22 @@
     >
       Auth
     </h1>
+    <div
+      class="absolute z-10 backdrop"
+      v-if="$store.getters['err/signupError']"
+    >
+      <dialog open class="rounded-lg my-36 p-10 text-center">
+        <p class="text-xl font-normal p-2 w-56 mb-5">
+          {{ $store.getters["err/signupError"] }}
+        </p>
+        <button
+          @click="clearErr"
+          class="px-4 py-2 text-white bg-indigo-900 mx-auto rounded-lg cursor-pointer"
+        >
+          Okay
+        </button>
+      </dialog>
+    </div>
     <div class="flex flex-col">
       <input
         class="p-2 font-sans border-2 rounded-lg"
@@ -75,6 +91,9 @@ export default {
     };
   },
   methods: {
+    clearErr() {
+      this.$store.commit("err/setSignupError", { err: null });
+    },
     async triggerSignupAction() {
       if (
         this.signupFirstName.trim == "" ||
@@ -95,7 +114,9 @@ export default {
         password: this.signupPassword,
       });
       this.loading = false;
-      this.$router.replace("/recipes/all");
+      if (this.$store.getter.token) {
+        this.$router.replace("/recipes/all");
+      }
     },
   },
 };

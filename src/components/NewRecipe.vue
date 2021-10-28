@@ -12,7 +12,19 @@
         Add New Recipe
       </button>
     </div>
-
+    <div v-if="errMsg" class="absolute z-10 backdrop">
+      <dialog open class="rounded-lg my-36 p-10 text-center">
+        <p class="text-xl font-normal p-2 w-56 mb-5">
+          {{ errMsg }}
+        </p>
+        <button
+          @click="clearErr"
+          class="px-4 py-2 text-white bg-indigo-900 mx-auto rounded-lg cursor-pointer"
+        >
+          Okay
+        </button>
+      </dialog>
+    </div>
     <div class="mb-2 w-full flex flex-row justify-between mt-4">
       <label for="recipeName" class="w-1/5">Recipe Name: </label>
       <input
@@ -80,37 +92,103 @@
     </div>
     <div class="mb-2 w-full flex flex-row">
       <div class="w-1/5">
-        <label for="recipeProcedure">Recipe Procedure: </label>
-        <p class="text-gray-400 text-xs">
-          Split Procedures by Hashes(#).
-        </p>
+        <label for="recipeIngredients">Recipe Procedure: </label>
       </div>
-      <textarea
-        type="text"
-        placeholder="Recipe Procedure"
-        id="recipeProcedure"
-        class="border-2 rounded-md p-1 w-full"
-        v-model="recipeProcedure"
-        rows="7"
-        style="outline-color: indigo"
-      />
+      <div class="w-full">
+        <div
+          v-for="(input, index) in recipeProcedure"
+          :key="`Procedure-${index}`"
+          class="input flex flex-col w-full"
+        >
+          <div class="flex flex-row pb-2">
+            <input
+              type="text"
+              class="border-2 rounded-md p-1 w-full"
+              placeholder=" Enter Procedure"
+              v-model="input.proc"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="ml-2 cursor-pointer"
+              @click="addProcField(index)"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                fill="green"
+                d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+              />
+            </svg>
+            <svg
+              v-if="index > 0"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="ml-2 cursor-pointer"
+              @click="removeProcField(index)"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                fill="#EC4899"
+                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="mb-2 w-full flex flex-row">
       <div class="w-1/5">
         <label for="recipeIngredients">Recipe Ingredients: </label>
-        <p class="text-gray-400 text-xs">
-          Split Ingredients by Hashes(#).
-        </p>
       </div>
-      <textarea
-        type="text"
-        placeholder="Recipe Ingredients"
-        id="recipeProcedure"
-        class="border-2 rounded-md p-1 w-full"
-        v-model="recipeIngredients"
-        rows="7"
-        style="outline-color: indigo"
-      />
+      <div class="w-full">
+        <div
+          v-for="(input, index) in recipeIngredients"
+          :key="`Ingredient-${index}`"
+          class="input flex flex-col w-full"
+        >
+          <div class="flex flex-row pb-2">
+            <input
+              type="text"
+              class="border-2 rounded-md p-1 w-full"
+              placeholder=" Enter Ingredient"
+              v-model="input.ingr"
+            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="ml-2 cursor-pointer"
+              @click="addIngField(index)"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                fill="green"
+                d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
+              />
+            </svg>
+            <svg
+              v-if="index > 0"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="24"
+              height="24"
+              class="ml-2 cursor-pointer"
+              @click="removeIngField(index)"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                fill="#EC4899"
+                d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -127,26 +205,83 @@ export default {
       recipeName: "",
       recipeDescription: "",
       recipeImage: "",
-      recipeProcedure: "",
+      recipeProcedure: [{ proc: "" }],
       type: "Veg",
       cookingTime: 90,
-      recipeIngredients: "",
+      recipeIngredients: [{ ingr: "" }],
       loading: false,
+      errMsg: null,
     };
   },
   methods: {
+    clearErr() {
+      this.errMsg = null;
+    },
+    addIngField(index) {
+      this.recipeIngredients = [
+        ...this.recipeIngredients.slice(0, index + 1),
+        { ingr: "" },
+        ...this.recipeIngredients.slice(index + 1),
+      ];
+    },
+    removeIngField(index) {
+      this.recipeIngredients.splice(index, 1);
+    },
+    addProcField(index) {
+      this.recipeProcedure = [
+        ...this.recipeProcedure.slice(0, index + 1),
+        { proc: "" },
+        ...this.recipeProcedure.slice(index + 1),
+      ];
+    },
+    removeProcField(index) {
+      this.recipeProcedure.splice(index, 1);
+    },
     async addNewRecipe() {
       this.loading = true;
+      let recipeIngArr = this.recipeIngredients.map((e) => {
+        if (e.ingr.trim() != "") {
+          return e.ingr.trim();
+        }
+      });
+      let recipeProcArr = this.recipeProcedure.map((e) => {
+        if (e.proc.trim() != "") {
+          return e.proc.trim();
+        }
+      });
+      let finalIngArr = [];
+      let finalProcArr = [];
+      for (let i = 0; i < recipeIngArr.length; i++) {
+        if (recipeIngArr[i]) {
+          finalIngArr.push(recipeIngArr[i]);
+        }
+      }
+      for (let i = 0; i < recipeProcArr.length; i++) {
+        if (recipeProcArr[i]) {
+          finalProcArr.push(recipeProcArr[i]);
+        }
+      }
+      if (
+        this.recipeName.trim() == "" ||
+        this.recipeDescription.trim() == "" ||
+        this.recipeImage.trim() == "" ||
+        finalProcArr.length == 0 ||
+        finalIngArr.length == 0
+      ) {
+        this.errMsg = "All fields are required..";
+        this.loading = false;
+        return;
+      }
       await this.$store.dispatch("recipes/addNewRecipe", {
         recipeName: this.recipeName,
         recipeDescription: this.recipeDescription,
         recipeImage: this.recipeImage,
         recipeType: this.type,
         cookingTime: this.cookingTime,
-        recipeProcedure: this.recipeProcedure.split("#"),
+        recipeProcedure: finalProcArr,
         userId: this.$store.getters["user/id"],
         userName: this.$store.getters["user/fullName"],
-        ingredients: this.recipeIngredients.split("#"),
+        ingredients: finalIngArr,
       });
       this.loading = false;
       this.$router.replace("/recipes/all");

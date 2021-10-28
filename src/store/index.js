@@ -2,9 +2,11 @@ import { createStore } from "vuex";
 
 import userModule from "./modules/user.js";
 import recipesModule from "./modules/recipes.js";
+import errorModule from "./modules/error.js";
 
 const store = createStore({
   modules: {
+    err: errorModule,
     user: userModule,
     recipes: recipesModule,
   },
@@ -35,6 +37,14 @@ const store = createStore({
       });
       if (result.status >= 200 && result.status < 400) {
         await context.dispatch("setData", { result: result });
+      } else if (result.status >= 400 && result.status < 500) {
+        context.commit("err/setLoginError", {
+          err: "Credentials that you entered are not Valid!!",
+        });
+      } else {
+        context.commit("err/setLoginError", {
+          err: "Something went wrong. Please try again later!!!",
+        });
       }
     },
     async performSignup(context, payload) {
@@ -47,6 +57,15 @@ const store = createStore({
       });
       if (result.status >= 200 && result.status < 400) {
         await context.dispatch("setData", { result: result });
+      } else if (result.status >= 400 && result.status < 500) {
+        context.commit("err/setSignupError", {
+          err: "Credentials that you entered are not Valid!!",
+        });
+      } else {
+        context.commit("err/setSignupError", {
+          err:
+            "Something went wrong. Please try again with a different email later!!!",
+        });
       }
     },
     async setData(context, payload) {

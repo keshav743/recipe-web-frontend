@@ -28,4 +28,12 @@ export default {
   z-index: 10;
   backdrop-filter: blur(4px);
 }
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

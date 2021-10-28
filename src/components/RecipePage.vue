@@ -62,8 +62,8 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-row shadow-lg p-4 rounded-lg">
-      <div class="my-5 w-1/2">
+    <div class="flex flex-row shadow-lg p-4 mt-2 rounded-lg">
+      <div class="ml-10 my-5 w-1/2">
         <p class="text-xl font-bold underline text-indigo-900">Ingredients</p>
         <p v-for="(ing, index) in recipe.ingredients" :key="ing" class="mt-1">
           <span class="font-bold text-sm text-indigo-900"

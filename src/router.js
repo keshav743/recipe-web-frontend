@@ -11,6 +11,7 @@ import AllRecipes from "./components/AllRecipes.vue";
 import NewRecipe from "./components/NewRecipe.vue";
 import EditRecipe from "./components/EditRecipe.vue";
 import MyRecipes from "./components/MyRecipes.vue";
+import SearchRecipe from "./components/SearchRecipe.vue";
 
 import store from "./store/index.js";
 
@@ -41,6 +42,11 @@ const router = createRouter({
       children: [
         { path: "all", component: AllRecipes, meta: { requiresAuth: true } },
         { path: "new", component: NewRecipe, meta: { requiresAuth: true } },
+        {
+          path: "search",
+          component: SearchRecipe,
+          meta: { requiresAuth: true },
+        },
         { path: "mine", component: MyRecipes, meta: { requiresAuth: true } },
         {
           path: "edit/:recipeId",
@@ -57,6 +63,10 @@ const router = createRouter({
       ],
     },
     { path: "/", meta: { requiresAuth: true }, redirect: "/recipes" },
+    {
+      path: "/*",
+      redirect: "/recipes/all",
+    },
   ],
 });
 

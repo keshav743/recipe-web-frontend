@@ -10,6 +10,13 @@
       <button
         class="text-indigo-900 rounded-md hover:bg-indigo-300"
         v-if="$store.getters.token !== null"
+        @click="goToSearch"
+      >
+        Search
+      </button>
+      <button
+        class="text-indigo-900 rounded-md hover:bg-indigo-300"
+        v-if="$store.getters.token !== null"
         @click="goToNewRecipe"
       >
         Add New Recipe
@@ -41,6 +48,9 @@ export default {
     },
     goToNewRecipe() {
       this.$router.push("/recipes/new");
+    },
+    goToSearch() {
+      this.$router.push("/recipes/search");
     },
     goToMyRecipes() {
       this.$router.push("/recipes/mine");

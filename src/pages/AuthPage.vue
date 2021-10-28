@@ -8,6 +8,10 @@
         veniam, quis nostrud exercitation ullamco
       </p>
     </div>
-    <router-view></router-view>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>

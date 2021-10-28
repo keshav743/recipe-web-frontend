@@ -1,6 +1,6 @@
 <template>
   <div v-if="this.$store.getters['recipes/myRecipes'] == null">
-    <div class="h-full"></div>
+    <div class="h-20"></div>
     <loading-spinner></loading-spinner>
   </div>
   <div v-else-if="this.$store.getters['recipes/myRecipes'].length == 0">

@@ -15,6 +15,22 @@
   </div>
   <div v-else>
     <div
+      class="absolute z-10 backdrop"
+      v-if="$store.getters['err/recipeFetchAllError']"
+    >
+      <dialog open class="rounded-lg my-36 p-10 text-center">
+        <p class="text-xl font-normal p-2 w-56 mb-5">
+          {{ $store.getters["err/recipeFetchAllError"] }}
+        </p>
+        <button
+          @click="clearErr"
+          class="px-4 py-2 text-white bg-indigo-900 mx-auto rounded-lg cursor-pointer"
+        >
+          Okay
+        </button>
+      </dialog>
+    </div>
+    <div
       class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 mx-5 p-3"
     >
       <div
@@ -77,7 +93,15 @@ export default {
   components: {
     LoadingSpinner,
   },
+  data() {
+    return {
+      checkedTypes: ["Veg", "Non Veg"],
+    };
+  },
   methods: {
+    clearErr() {
+      this.$store.commit("err/setReicpeFetchError", { err: null });
+    },
     goToRecipePage(id) {
       this.$router.push(`/recipes/${id}`);
     },

@@ -73,6 +73,20 @@ export default {
         console.log(recipe.data);
       }
     },
+    searchRecipe(context, payload) {
+      return fetch(
+        `http://localhost:3000/api/recipes/search/${
+          payload.searchStr == "" ? "limitAll6" : payload.searchStr
+        }`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: context.rootGetters.token,
+          },
+        }
+      );
+    },
   },
   getters: {
     recipes(state) {
