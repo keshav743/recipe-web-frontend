@@ -68,6 +68,7 @@ const store = createStore({
           err: "Credentials that you entered are not Valid!!",
         });
       } else {
+        console.log(result);
         context.commit("err/setSignupError", {
           err:
             "Something went wrong. Please try again with a different email later!!!",

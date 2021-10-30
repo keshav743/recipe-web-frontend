@@ -115,9 +115,7 @@ export default {
         password: this.signupPassword,
       });
       this.loading = false;
-      if (this.$store.getter.token) {
-        this.$router.replace("/recipes/all");
-      }
+      this.$router.replace("/recipes/all");
     },
   },
 };
